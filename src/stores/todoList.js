@@ -4,7 +4,7 @@ export const todoList = createSlice({
 
     name: "todos",
 
-    initialState:{
+    initialState: {
         mainArr: [
             {
                 id: 1,
@@ -59,6 +59,22 @@ export const todoList = createSlice({
             state.mainArr[index].isChanging = true;
         },
 
+        changeTodoValue: (state, action) => {
+
+            const changedTodo = state.mainArr.filter((todo) => todo.isChanging === true);
+
+            changedTodo.title = action.payload.title
+
+
+
+            const index = state.mainArr.findIndex((todo) => todo.isChanging);
+
+            state.mainArr[index].title = action.payload
+
+            console.log(action);
+
+        },
+
         clearCompleted: (state) => {
             state.mainArr = state.mainArr.filter((todo) => todo.completed !== true)
         },
@@ -78,9 +94,10 @@ export const todoList = createSlice({
             state.filterType = 'completed'
         },
 
+
     }
 })
 
-export const { addTodo, toggleComplete, deleteTodo, clearCompleted, seeAll, seeActive, seeCompleted, changeTodoChanging } = todoList.actions;
+export const { addTodo, toggleComplete, deleteTodo, clearCompleted, seeAll, seeActive, seeCompleted, changeTodoChanging, changeTodoValue } = todoList.actions;
 
 export default todoList.reducer;
